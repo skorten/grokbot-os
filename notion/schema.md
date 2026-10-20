@@ -81,7 +81,7 @@ The six kinds of task. Lives under Operating system, next to Categories. Seed it
 | Tasks | relation (back-link from Tasks.Todo type) | |
 
 ## Categories
-Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The file is an example to edit, not the owner's list. The owner edits it before seeding. Check for near-matches before adding a new one.
+Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The file is an example. The owner edits it before seeding. Check for near-matches before adding a new one.
 
 | Property | Type | Values / notes |
 |---|---|---|
@@ -122,7 +122,7 @@ Each product under the Dev Pod sandbox gets its own pair, copied from a template
 |---|---|---|
 | Name | title | |
 | Type | select | Story, Bug, Spike, Chore |
-| Status | select | Todo, Working, Blocked, Ready for Review, Done, Archived. Blocked is the blocked signal |
+| Status | select | Todo, Working, Blocked, Ready for Review, Done, Archived |
 | Priority | select | P0, P1, P2, P3 |
 | Acceptance criteria | text | |
 | Estimate | number | |

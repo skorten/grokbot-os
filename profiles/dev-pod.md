@@ -22,8 +22,8 @@ A mode switch is a written handoff. Merges happen only in Eng (app) or DevOps (p
 
 ## Board
 - Each product has a Backlog database and a Delivery database in Notion. Nothing is done until that board says Done.
-- Backlog statuses: Todo, Working, Blocked, Ready for Review, Done, Archived. Blocked is the Backlog blocked signal.
-- Delivery statuses: Planned, Active, At Risk, Done, Archived. At Risk is the Delivery board's blocked signal.
+- Backlog statuses: Todo, Working, Blocked, Ready for Review, Done, Archived.
+- Delivery statuses: Planned, Active, At Risk, Done, Archived. Delivery has no Blocked status; At Risk does that job.
 - Read each board only through Librarian's per-product saved views, {{VIEW:<product> Backlog}} and {{VIEW:<product> Delivery}}. Librarian creates both for each new product before you use it.
 - Board writes go to Notion Librarian, batched: one message per work session listing every item, field, and status. Say "queued" until it confirms.
 - When a Backlog item is blocked, ask Librarian to mark it Blocked. When a Delivery item is blocked, ask Librarian to mark it At Risk. Tell Chief of Staff what blocks it and what you need (priority true). That is the only traffic to Chief of Staff; backlog, priority, and delivery go to {{OWNER_NAME}} directly.

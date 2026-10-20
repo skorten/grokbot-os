@@ -57,7 +57,7 @@ Main paths only. Fleet Ops, Bot Designer, and Side Quest also send Notion writes
 - **Librarian is the only writer.** Every other bot reads freely (search and fetch) but sends every write (create, update, move, comment, property edit, row, delete, trash, restore) to Librarian with the exact content and target. That includes when the owner says "put it in Notion." Until Librarian confirms, the bot says "queued." If a bot notices it wrote directly, it stops, tells the owner, and tells Librarian what it touched.
 - **Saved views only.** Bots query databases only through Librarian's saved views (`notion/views.md`), never SQL or rows mode. While Librarian is building or repairing a database or view, Librarian may read that database directly.
 - **Tasks is the only to-do list.** Every task has notes (what, why, next step, source). Each task has a Todo type (a relation to the Todo types database); waiting items use "Others' work" with a follow-up date.
-- **Deletes need the owner's own yes,** naming the item, in Librarian's chat. Otherwise archive. Move a page under Archive. Set Status to Archived on a row in Tasks, Projects, Backlog, or Delivery. Bot views exclude Status Archived.
+- **Deletes need the owner's own yes,** naming the item, in Librarian's chat. Otherwise archive: move a page under Archive, or set Status to Archived on a row in Tasks, Projects, Backlog, or Delivery. Bot views exclude Status Archived.
 - **No Notion links for coworkers** in Slack or email.
 - Every bot reads the Agent README at the start of each session.
 
@@ -104,7 +104,7 @@ Having write access doesn't mean you use it: during the install you only read No
 
 **Step 1. Create Bot Designer.** With the owner's approval, create Bot Designer from `profiles/bot-designer.md`.
 
-**Step 2. Bot Designer creates Notion Librarian** from `profiles/notion-librarian.md`, after asking the owner its design questions and getting the owner's yes in its own chat. Grant Librarian Notion write access. From here on, every Notion write in this install is Librarian's. You only read Notion.
+**Step 2. Bot Designer creates Notion Librarian** from `profiles/notion-librarian.md`, after asking the owner its design questions and getting the owner's yes in its own chat. Bot Designer grants Librarian Notion write access. From here on, every Notion write in this install is Librarian's. You only read Notion.
 
 **Step 3. Librarian builds Notion.** Send Librarian `notion/` and ask it to build, confirming each part with the owner:
 
@@ -125,11 +125,11 @@ Project-only databases (Meeting notes, Work board) come later, inside a project 
 - Bot Designer asks the owner its design questions (at most three) in its own chat.
 - The owner approves that bot before it is created. No bot is created on a relayed yes.
 - Bot Designer reads the saved profile back to confirm it matches, then fills `{{BOT_ID:Role}}` and `{{VIEW:...}}` placeholders in every profile that names it (part of the approved create; no re-ask).
-- Bot Designer grants only the tools named on that profile's Tools line. These bots do not get Notion write. Notion write stays with Notion Librarian.
+- Bot Designer grants only the tools named on that profile's Tools line. None of these bots gets Notion write; that stays with Notion Librarian.
 
 **Step 5. Add the routines.** Each owning bot creates its own routines from `routines.md` (a bot edits only its own): the five core routines, plus any optional add-on the owner wants. Set `{{TIMEZONE}}`, adjust times with the owner, and leave each one draft-only.
 
-**Step 6. You, after install.** You keep the Notion write access from the prerequisite, and you only read Notion. Librarian makes every Notion write. Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile, so your profile says the same thing: you read Notion, and every Notion write is a message to Librarian.
+**Step 6. You, after install.** Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile. You keep the prerequisite Notion write access, and the gate puts the rule in writing: you read Notion, and every Notion write is a message to Librarian.
 
 **Step 7. Verify.** Check each item and report pass or fail to the owner:
 - [ ] Every database in `notion/schema.md` exists with its properties, option sets, and relations, including Todo types and the two-way Todo type relation.
@@ -138,10 +138,10 @@ Project-only databases (Meeting notes, Work board) come later, inside a project 
 - [ ] The Agent README and its change log exist.
 - [ ] Every bot exists, the owner approved each one, its saved profile was read back, and no `{{...}}` placeholder is left.
 - [ ] No bot is a Team Bot, and none has been shared or published as a template.
-- [ ] Tools: each bot has only the tools on its Tools line. Only Notion Librarian has Notion write access, except you. You keep the step 0 prerequisite access and you only read Notion. Librarian makes every Notion write.
+- [ ] Tools: each bot has only the tools on its Tools line. Notion Librarian and you are the only bots with Notion write access, and you've only read Notion; every write went through Librarian.
 - [ ] Notion gate: ask Chief of Staff to add a test task. It sends the task to Librarian and says "queued"; Librarian creates it with notes and a Todo type and logs it in the change log.
 - [ ] Delete gate: ask Chief of Staff to trash that test page. It routes to Librarian, and Librarian refuses without the owner's own yes in Librarian's chat.
-- [ ] Clean-up: Librarian sets the test task's Status to Archived. You don't write it. The row stays in Tasks. It does not move under the Archive page.
+- [ ] Clean-up: Librarian sets the test task's Status to Archived, and you make no write. The row stays in Tasks and doesn't move under the Archive page.
 - [ ] Front door: ask Chief of Staff for something admin-shaped. It routes to Admin Bot and reports back in five lines or fewer.
 - [ ] Draft before send: ask Admin Bot to email someone. It produces a draft card and doesn't send.
 - [ ] The stale sweep runs as part of the daily task review (run it once by hand), and the brief doesn't run its own sweep.
