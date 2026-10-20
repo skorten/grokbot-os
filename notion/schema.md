@@ -6,7 +6,7 @@ Generic starting schema. Adapt it to the owner's needs; don't copy it blindly. N
 - One tracker per job. Search before creating a database; reuse one that already fits.
 - Keep databases few.
 - Every database has a `Created` (created time) property and closed-set `Status` and `Type` options.
-- Finish with Done or move to Archive. Never delete.
+- To retire a page, move it under Archive. To retire a row in Tasks, Projects, Backlog, or Delivery, set Status to Archived. Bot views exclude Status Archived. Never delete.
 - Categories and Todo types are databases, not selects, so the lists are shared, defined in one place, and changed only through Librarian.
 
 ## Relations
@@ -28,7 +28,7 @@ The owner's only to-do list. Lives at the top of the private sidebar.
 | Property | Type | Values / notes |
 |---|---|---|
 | Name | title | |
-| Status | select | Not Started, In Progress, Done |
+| Status | select | Not Started, In Progress, Done, Archived |
 | Priority | select | High, Medium, Low, None |
 | Todo type | relation → Todo types | two-way, one per task |
 | Type | select | Work, Personal |
@@ -41,7 +41,7 @@ The owner's only to-do list. Lives at the top of the private sidebar.
 
 **Todo type:** only `Do / own` is owned work; the other five are tracked, not owned. Don't add, replace, or collapse values without the owner's yes.
 
-Human views (for the owner, not bots): Default; Oldest First (Status is not Done, Created ascending); Personal Open.
+Human views (for the owner, not bots): Default; Oldest First (Status is not Done and not Archived, Created ascending); Personal Open.
 
 ## Projects
 Multi-week efforts only. Lives under Operating system.
@@ -49,7 +49,7 @@ Multi-week efforts only. Lives under Operating system.
 | Property | Type | Values / notes |
 |---|---|---|
 | Name | title | |
-| Status | select | Active, On Hold, Done |
+| Status | select | Active, On Hold, Done, Archived |
 | Type | select | Work, Personal |
 | Notes | text | Brief |
 | Created | created time | |
@@ -81,7 +81,7 @@ The six kinds of task. Lives under Operating system, next to Categories. Seed it
 | Tasks | relation (back-link from Tasks.Todo type) | |
 
 ## Categories
-Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The owner should edit the list first. Check for near-matches before adding a new one.
+Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The file is an example to edit, not the owner's list. The owner edits it before seeding. Check for near-matches before adding a new one.
 
 | Property | Type | Values / notes |
 |---|---|---|
@@ -122,7 +122,7 @@ Each product under the Dev Pod sandbox gets its own pair, copied from a template
 |---|---|---|
 | Name | title | |
 | Type | select | Story, Bug, Spike, Chore |
-| Status | select | Todo, Working, Blocked, Ready for Review, Done |
+| Status | select | Todo, Working, Blocked, Ready for Review, Done, Archived. Blocked is the blocked signal |
 | Priority | select | P0, P1, P2, P3 |
 | Acceptance criteria | text | |
 | Estimate | number | |
@@ -134,7 +134,7 @@ Each product under the Dev Pod sandbox gets its own pair, copied from a template
 | Property | Type | Values |
 |---|---|---|
 | Name | title | |
-| Status | select | Planned, Active, At Risk, Done |
+| Status | select | Planned, Active, At Risk, Done, Archived. At Risk is the blocked signal |
 | Milestone | text | |
 | Target date | date | |
 | Dependencies | text | |
@@ -147,7 +147,7 @@ An inline database on the bot rules page (Agent README). Librarian adds one row 
 |---|---|---|
 | Agent | title | Which bot asked for the write |
 | Page | URL | The page written |
-| Action | select | create, append (add others such as update or move if needed) |
+| Action | select | create, append, update, move, archive, restore, delete, refused |
 | Time | date (with time) | |
 | Summary | text | One line |
 | Reviewed | checkbox | The owner checks it |

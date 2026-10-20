@@ -50,14 +50,14 @@ flowchart LR
   CoS -->|five lines or fewer| O
 ```
 
-The owner can still talk to any bot directly. Side Quest only hands work to Chief of Staff when the owner explicitly asks.
+Main paths only. Fleet Ops, Bot Designer, and Side Quest also send Notion writes to Librarian. The owner can still talk to any bot directly. Side Quest only hands work to Chief of Staff when the owner explicitly asks.
 
 ## 4. The Notion core
 - Notion holds the to-do list (Tasks), projects, lasting notes, the shared Categories list, research, and the bot rules page (Agent README) with its change log. See `notion/`.
 - **Librarian is the only writer.** Every other bot reads freely (search and fetch) but sends every write (create, update, move, comment, property edit, row, delete, trash, restore) to Librarian with the exact content and target. That includes when the owner says "put it in Notion." Until Librarian confirms, the bot says "queued." If a bot notices it wrote directly, it stops, tells the owner, and tells Librarian what it touched.
-- **Saved views only.** Bots query databases only through Librarian's saved views (`notion/views.md`), never SQL or rows mode.
+- **Saved views only.** Bots query databases only through Librarian's saved views (`notion/views.md`), never SQL or rows mode. While Librarian is building or repairing a database or view, Librarian may read that database directly.
 - **Tasks is the only to-do list.** Every task has notes (what, why, next step, source). Each task has a Todo type (a relation to the Todo types database); waiting items use "Others' work" with a follow-up date.
-- **Deletes need the owner's own yes,** naming the item, in Librarian's chat. Otherwise, archive.
+- **Deletes need the owner's own yes,** naming the item, in Librarian's chat. Otherwise archive. Move a page under Archive. Set Status to Archived on a row in Tasks, Projects, Backlog, or Delivery. Bot views exclude Status Archived.
 - **No Notion links for coworkers** in Slack or email.
 - Every bot reads the Agent README at the start of each session.
 
@@ -104,7 +104,7 @@ Having write access doesn't mean you use it: during the install you only read No
 
 **Step 1. Create Bot Designer.** With the owner's approval, create Bot Designer from `profiles/bot-designer.md`.
 
-**Step 2. Bot Designer creates Notion Librarian** from `profiles/notion-librarian.md`, after asking the owner its design questions and getting the owner's yes in its own chat. From here on, every Notion write in this install is Librarian's.
+**Step 2. Bot Designer creates Notion Librarian** from `profiles/notion-librarian.md`, after asking the owner its design questions and getting the owner's yes in its own chat. Grant Librarian Notion write access. From here on, every Notion write in this install is Librarian's. You only read Notion.
 
 **Step 3. Librarian builds Notion.** Send Librarian `notion/` and ask it to build, confirming each part with the owner:
 
@@ -117,28 +117,31 @@ Having write access doesn't mean you use it: during the install you only read No
 5. The Agent README page under Operating system with the sections in `notion/page-tree.md`, and its inline **Agent change log** database.
 6. Under Reference: Research and Architecture Reference. Put a copy of this architecture document in Architecture Reference.
 7. If the owner wants Dev Pod: under Domains, the Dev sandbox, `_Shared conventions`, Products, `_Template product`, and the first product with its Backlog and Delivery databases.
-8. **The saved views** in `notion/views.md`, exactly as specified, plus a Backlog and a Delivery view for each Dev Pod product. Librarian reports each view's reference so it can replace `{{VIEW:...}}` in the profiles.
+8. **The saved views** in `notion/views.md`, exactly as specified, plus a Backlog and a Delivery view for each Dev Pod product. Librarian reports each view's reference so it can replace `{{VIEW:...}}` in the profiles. While a database or view is being built or repaired, Librarian may read that database directly.
+9. The Home page under Operating system: a summary page with the saved views embedded.
 Project-only databases (Meeting notes, Work board) come later, inside a project page, only when a project needs them.
 
 **Step 4. Bot Designer creates the rest of the bots** from `profiles/`, in this order: Chief of Staff, Fleet Ops, Admin Bot, Deep Research, then whichever of Docs Writer, Dev Pod, and Side Quest the owner wants. For each one:
 - Bot Designer asks the owner its design questions (at most three) in its own chat.
 - The owner approves that bot before it is created. No bot is created on a relayed yes.
 - Bot Designer reads the saved profile back to confirm it matches, then fills `{{BOT_ID:Role}}` and `{{VIEW:...}}` placeholders in every profile that names it (part of the approved create; no re-ask).
+- Bot Designer grants only the tools named on that profile's Tools line. These bots do not get Notion write. Notion write stays with Notion Librarian.
 
 **Step 5. Add the routines.** Each owning bot creates its own routines from `routines.md` (a bot edits only its own): the five core routines, plus any optional add-on the owner wants. Set `{{TIMEZONE}}`, adjust times with the owner, and leave each one draft-only.
 
-**Step 6. You, after install.** Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile now, so your later Notion writes go through Librarian like every other bot's.
+**Step 6. You, after install.** You keep the Notion write access from the prerequisite, and you only read Notion. Librarian makes every Notion write. Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile, so your profile says the same thing: you read Notion, and every Notion write is a message to Librarian.
 
 **Step 7. Verify.** Check each item and report pass or fail to the owner:
 - [ ] Every database in `notion/schema.md` exists with its properties, option sets, and relations, including Todo types and the two-way Todo type relation.
 - [ ] Categories is seeded with the owner's edited list; Todo types has its six rows with definitions, and only Do / own is Owned.
-- [ ] Each bot view returns the right rows, sort, and columns (Waiting on others shows only Todo type Others' work).
+- [ ] Each bot view returns the right rows, sort, and columns (Waiting on others shows only Todo type Others' work). Every bot view excludes Status Archived.
 - [ ] The Agent README and its change log exist.
 - [ ] Every bot exists, the owner approved each one, its saved profile was read back, and no `{{...}}` placeholder is left.
 - [ ] No bot is a Team Bot, and none has been shared or published as a template.
+- [ ] Tools: each bot has only the tools on its Tools line. Only Notion Librarian has Notion write access, except you. You keep the step 0 prerequisite access and you only read Notion. Librarian makes every Notion write.
 - [ ] Notion gate: ask Chief of Staff to add a test task. It sends the task to Librarian and says "queued"; Librarian creates it with notes and a Todo type and logs it in the change log.
 - [ ] Delete gate: ask Chief of Staff to trash that test page. It routes to Librarian, and Librarian refuses without the owner's own yes in Librarian's chat.
-- [ ] Clean-up: the test task is archived by Librarian, not by you.
+- [ ] Clean-up: Librarian sets the test task's Status to Archived. You don't write it. The row stays in Tasks. It does not move under the Archive page.
 - [ ] Front door: ask Chief of Staff for something admin-shaped. It routes to Admin Bot and reports back in five lines or fewer.
 - [ ] Draft before send: ask Admin Bot to email someone. It produces a draft card and doesn't send.
 - [ ] The stale sweep runs as part of the daily task review (run it once by hand), and the brief doesn't run its own sweep.

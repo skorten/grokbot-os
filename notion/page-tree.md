@@ -28,7 +28,7 @@ Generic outline of the private Notion space. Names are suggestions. Top-level pa
 │   ├── Architecture Reference   design record for this system
 │   ├── Research                 one page per finished research, filed by Librarian
 │   └── <Other guides>
-└── Archive                      park things here; never delete
+└── Archive                      pages move here; rows use Status Archived
 ```
 
 ## Agent README (the bot rules page)
