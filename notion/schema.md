@@ -7,17 +7,18 @@ Generic starting schema. Adapt it to the owner's needs; don't copy it blindly. N
 - Keep databases few.
 - Every database has a `Created` (created time) property and closed-set `Status` and `Type` options.
 - Finish with Done or move to Archive. Never delete.
-- Categories is a database (a shared tag list), not a select, so Tasks and Notes share one list.
+- Categories and Todo types are databases, not selects, so the lists are shared, defined in one place, and changed only through Librarian.
 
 ## Relations
 | From | Property | To | Cardinality |
 |---|---|---|---|
 | Tasks | Project | Projects | optional, single |
 | Tasks | Category | Categories | multi |
+| Tasks | Todo type | Todo types | two-way, single |
 | Notes | Category | Categories | multi |
 | Notes | Related Project | Projects | optional, single |
 
-Back-links appear on the target: Projects gets `Tasks` and `Related Notes`; Categories gets `Tasks` and `Notes`.
+Back-links appear on the target: Projects gets `Tasks` and `Related Notes`; Categories gets `Tasks` and `Notes`; Todo types gets `Tasks`.
 
 ---
 
@@ -29,17 +30,16 @@ The owner's only to-do list. Lives at the top of the private sidebar.
 | Name | title | |
 | Status | select | Not Started, In Progress, Done |
 | Priority | select | High, Medium, Low, None |
-| todo_type | select | Do / own, Raise/influence, Standing posture, Team norms, Watch/risk, Others' work |
+| Todo type | relation → Todo types | two-way, one per task |
 | Type | select | Work, Personal |
 | Due Date | date | Real deadlines only |
-| Follow up | date | When Chief of Staff next checks an item that isn't Do / own. Effectively required for Others' work |
+| Follow up | date | When Chief of Staff next checks an item that isn't Do / own. Effectively required when Todo type is Others' work |
 | Created | created time | |
 | Notes | text | What, why, next step, source, or a link to a page that has them. No bare titles |
 | Category | relation → Categories | multi |
 | Project | relation → Projects | optional |
 
-**todo_type:** only `Do / own` is owned work; the other five are tracked, not owned. Don't add, replace, or collapse values without the owner's yes. Define each value on a "Todo types" page under Reference.
-> Note: todo_type is a select for now. It can be promoted later to its own Todo Types database (with a relation from Tasks), the same way Categories is a database.
+**Todo type:** only `Do / own` is owned work; the other five are tracked, not owned. Don't add, replace, or collapse values without the owner's yes.
 
 Human views (for the owner, not bots): Default; Oldest First (Status is not Done, Created ascending); Personal Open.
 
@@ -68,6 +68,17 @@ Lasting reference: decisions, protocols, numbers, build notes. Lives under Opera
 | Category | relation → Categories | multi |
 | Related Project | relation → Projects | optional |
 | Created | created time | |
+
+## Todo types
+The six kinds of task. Lives under Operating system, next to Categories. Seed it from `todo-types-seed.csv`.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Name | title | Do / own, Raise/influence, Standing posture, Team norms, Watch/risk, Others' work |
+| Definition | text | One line |
+| Owned | checkbox | True only for Do / own |
+| Created | created time | |
+| Tasks | relation (back-link from Tasks.Todo type) | |
 
 ## Categories
 Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The owner should edit the list first. Check for near-matches before adding a new one.

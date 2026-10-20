@@ -1,6 +1,6 @@
 # Page tree
 
-Generic outline of the private Notion space. Names are suggestions; keep the six areas.
+Generic outline of the private Notion space. Names are suggestions. Top-level pages (the same list the Librarian profile and the install use): Personal, Tasks, Inbox, Workstreams, Domains, Operating system, Reference, Archive.
 
 ```
 (private root)
@@ -21,10 +21,10 @@ Generic outline of the private Notion space. Names are suggestions; keep the six
 │   │                            a decision log, optional project-only databases
 │   ├── Notes                    database
 │   ├── Categories               database
+│   ├── Todo types               database, next to Categories
 │   └── Agent README             the bot rules page (see below)
 │       └── Agent change log     inline database
 ├── Reference
-│   ├── Todo types               definition of the six todo_type values
 │   ├── Architecture Reference   design record for this system
 │   ├── Research                 one page per finished research, filed by Librarian
 │   └── <Other guides>
@@ -35,7 +35,7 @@ Generic outline of the private Notion space. Names are suggestions; keep the six
 Every bot reads this at the start of each session. Sections:
 1. Where things live (this tree, in short).
 2. What bots may do: read and search anywhere; query databases only through saved views; every write goes to Notion Librarian.
-3. Task rules: Tasks is the only to-do list; notes on every task; todo_type and Follow up usage.
+3. Task rules: Tasks is the only to-do list; notes on every task; Todo type and Follow up usage.
 4. Privacy: no Notion links in chat or email for coworkers; no secrets or private details on shared pages.
 5. Sign every write: Librarian logs each write in the Agent change log.
 6. Do-not-touch list: pages no bot edits.

@@ -6,9 +6,10 @@ After creating each view, record its reference in each bot profile where `{{VIEW
 
 | View | Database | Filter | Sort | Columns | Used for |
 |---|---|---|---|---|---|
-| Open tasks (bots) | Tasks | Status is not Done | Due Date ascending | Name, Status, todo_type, Priority, Due Date, Follow up, Type, Notes | Main read for open work, the stale sweep, duplicate checks |
-| Waiting on others (bots) | Tasks | Status is not Done AND todo_type = Others' work | Follow up ascending | Name, Status, Follow up, Due Date, Notes | Chief of Staff's follow-up list |
+| Open tasks (bots) | Tasks | Status is not Done | Due Date ascending | Name, Status, Todo type, Priority, Due Date, Follow up, Type, Notes | Main read for open work, the stale sweep, duplicate checks |
+| Waiting on others (bots) | Tasks | Status is not Done AND Todo type contains Others' work | Follow up ascending | Name, Status, Follow up, Due Date, Notes | Chief of Staff's follow-up list |
+| All tasks (bots) | Tasks | none | Created descending | Name, Status, Todo type, Priority, Due Date, Follow up, Type, Notes | Duplicate checks and history, including Done tasks |
 | Active projects (bots) | Projects | Status = Active | (any) | Name, Status, Type, Notes, Tasks | Project context for briefs and routing |
 | *Optional:* <Product> board (bots) | each sandbox Backlog / Delivery | none | grouped by Status | all | Dev Pod board reads; add one per database before the pod uses it |
 
-All are table views. Notes and Categories have no bot view; bots use search and fetch for those.
+All are table views. Notes, Categories, and Todo types have no bot view; bots use search and fetch for those.
