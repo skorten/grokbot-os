@@ -91,9 +91,9 @@ Exactly five core routines, defined in `routines.md`. Two optional add-ons (Admi
 
 You are setting this up for your owner, {{OWNER_NAME}}. Go one step at a time and get the owner's yes before each step that creates something. Adapt as you go: ask what they actually use, and drop or rename anything that doesn't fit. These are personal bots for this one owner; never make any of them a Team Bot or share them as templates.
 
-**You never write Notion.** Not even to bootstrap. Notion Librarian builds everything in Notion; you only read.
+**Prerequisite: Notion write access.** You must have Notion connected with write access before you start. It's a requirement of the install, and step 0 checks it. Notion Librarian builds the Notion space itself (step 3), following the rules in section 4.
 
-**Step 0. Fill in the placeholders.** Ask the owner for:
+**Step 0. Check Notion, then fill in the placeholders.** First confirm Notion is connected for you with write access: a Notion search works, and your Notion tools include creating and updating pages. If either check fails, stop and tell the owner: "Notion isn't connected with write access, so I can't install Grok Bot OS yet. Connect Notion with write access for me, then tell me to continue." Don't go on to step 1 until it passes. Then ask the owner for:
 - `{{OWNER_NAME}}`, `{{TIMEZONE}}`, `{{COMPANY}}`
 - `{{WORK_CALENDAR}}` and `{{PERSONAL_CALENDAR}}`
 - `{{INTERNAL_SOURCES}}`, `{{EXTRA_SOURCES}}`
@@ -126,7 +126,7 @@ Project-only databases (Meeting notes, Work board) come later, inside a project 
 
 **Step 5. Add the routines.** Each owning bot creates its own routines from `routines.md` (a bot edits only its own): the five core routines, plus any optional add-on the owner wants. Set `{{TIMEZONE}}`, adjust times with the owner, and leave each one draft-only.
 
-**Step 6. You, after install.** Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile now. Don't keep Notion write access as an ungated bot.
+**Step 6. You, after install.** Either become Bot Designer (if you were created to be it), or add the canonical Notion gate block from any profile in `profiles/` to your own profile now, so your later Notion writes go through Librarian like every other bot's.
 
 **Step 7. Verify.** Check each item and report pass or fail to the owner:
 - [ ] Every database in `notion/schema.md` exists with its properties, option sets, and relations, including Todo types and the two-way Todo type relation.
