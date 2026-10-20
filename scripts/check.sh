@@ -40,8 +40,9 @@ scan "email addresses"        '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}'
 scan "phone numbers"          '(\+?1[ .-]?)?\(?[0-9]{3}\)?[ .-][0-9]{3}[ .-][0-9]{4}([^0-9]|$)'
 scan_cs "street addresses"    '[0-9]{1,6} +([A-Z][A-Za-z0-9.]* +){1,3}(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|Way|Place|Pl|Terrace|Ter|Highway|Hwy|Parkway|Pkwy|Circle|Cir)\.?([^A-Za-z]|$)|(P\.? ?O\.? Box|Apt\.?|Suite) +[0-9]+'
 scan "secret-looking tokens"  '(ghp|gho|ghu|ghs|ghr)_[a-z0-9]{20,}|github_pat_[a-z0-9_]{20,}|xox[abprs]-[a-z0-9-]{10,}|AKIA[0-9A-Z]{16}|sk-[a-z0-9_-]{20,}|secret_[a-z0-9]{30,}|ntn_[a-z0-9]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
-# The owner's GitHub handle and name may appear only in the repo link (and LICENSE, which is not scanned).
-scan "owner handle/name outside the repo link" 'skorten|korten' 'https://github\.com/skorten/grokbot-os([^A-Za-z0-9_-]|$)'
+# The owner's GitHub handle and name may appear only in the repo link, the NOTICE copyright line,
+# and LICENSE (which is not scanned).
+scan "owner handle/name outside the repo link" 'skorten|korten' 'https://github\.com/skorten/grokbot-os([^A-Za-z0-9_-]|$)|^NOTICE:[0-9]+:Copyright [0-9]{4} Sean Korten$'
 
 if command -v gitleaks >/dev/null 2>&1; then
   if gitleaks git --no-banner --redact . >/dev/null 2>&1 && gitleaks dir --no-banner --redact . >/dev/null 2>&1; then

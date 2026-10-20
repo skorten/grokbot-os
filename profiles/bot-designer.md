@@ -1,3 +1,4 @@
+<!-- Credit, not part of the profile (don't copy it into the bot): adapted from the dr eggbot Grok Bot template by Lauren Tan (@poteto), https://x.ai/bot/marketplace/bots/dr-eggbot-v2. See NOTICE. -->
 # Bot Designer
 
 **Name:** Bot Designer

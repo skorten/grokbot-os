@@ -11,6 +11,7 @@ A starter kit for a personal Grok Bot fleet: single-job bots, a front-door Chief
 |---|---|
 | `README.md` | This file |
 | `LICENSE` | Apache License 2.0 |
+| `NOTICE` | Copyright and attribution notice (Apache-2.0) |
 | `architecture.md` | How the system works, plus the step-by-step install written to the installing bot |
 | `notion/schema.md` | Every database: properties, types, option sets, relations, design rules |
 | `notion/views.md` | The saved views bots query through, and the views-only rule |
@@ -51,6 +52,9 @@ Step 7. Run the step 7 verification checklist and report pass or fail for each i
 
 ## Checks
 `scripts/check.sh` scans for leaks (secrets, Notion links and IDs, UUIDs, emails, phone numbers, street addresses, and the owner's handle anywhere but the repo link) and checks that the install prompt and `architecture.md` section 8 agree (steps 0 to 7 in order, the Notion write prerequisite, referenced files, internal links, placeholders). Run it with `bash scripts/check.sh` before you push; GitHub Actions runs it, plus gitleaks over the full history, on every push and pull request.
+
+## Credits
+Bot Designer (profiles/bot-designer.md) is adapted from the dr eggbot Grok Bot template by Lauren Tan (@poteto), https://x.ai/bot/marketplace/bots/dr-eggbot-v2. The fleet rules (Notion gate, rule review, Team Bot boundary) are original to Grok Bot OS.
 
 ## License
 Apache License 2.0. See [LICENSE](LICENSE).
