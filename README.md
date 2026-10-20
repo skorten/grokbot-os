@@ -22,7 +22,7 @@ A starter kit for a personal Grok Bot fleet: single-job bots, a front-door Chief
 | `routines.md` | Exactly five core routines with cron schedules and prompts, plus two optional add-ons |
 
 ## Prerequisite
-The bot running the install must have Notion connected with **write access**. This is a requirement, not an option: the install stops at step 0 until it's connected.
+The bot running the install must have Notion connected with **write access**. This is a requirement, not an option: the install stops at step 0 until it's connected. Having write access doesn't mean the installing bot uses it: during the install it only reads Notion, and Notion Librarian does every Notion write, from step 3 on.
 
 ## Order of use
 1. Read `architecture.md` sections 1 to 7.
@@ -42,6 +42,7 @@ Paste this into a blank Grok Bot. Its step numbers match the install in `archite
 Install Grok Bot OS for me from https://github.com/skorten/grokbot-os. Read architecture.md first, then follow its section 8 install one step at a time, and get my yes before each step that creates something. Adapt as you go: ask what I actually use, and drop or rename anything that doesn't fit. These are personal bots for me only; never make any of them a Team Bot or share them as templates.
 
 Prerequisite: you must have Notion connected with write access. The install can't run without it.
+Having write access doesn't mean you use it: during the install you only read Notion. Notion Librarian does every Notion write, from step 3 on.
 
 Step 0. Check that Notion is connected for you with write access: a Notion search works and your Notion tools include creating and updating pages. If not, stop and tell me: "Notion isn't connected with write access, so I can't install Grok Bot OS yet. Connect Notion with write access for me, then tell me to continue." Once it is, ask me for every placeholder: OWNER_NAME, TIMEZONE, COMPANY, WORK_CALENDAR, PERSONAL_CALENDAR, INTERNAL_SOURCES, EXTRA_SOURCES, INTERNAL_WIKI, DOC_HOME_A/B/C, PROSE_AUDIT_SKILL, which bots I want, and (if I want Dev Pod) the first product name. BOT_ID and VIEW placeholders are filled later, as bots and views are created.
 Step 1. With my approval, create Bot Designer from profiles/bot-designer.md.

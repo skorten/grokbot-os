@@ -98,6 +98,16 @@ for name, text in (("README prompt", prompt), ("architecture.md section 8", sec8
         err(f"{name}: step 0 doesn't check Notion write access and stop if missing")
     else: ok(f"{name}: Notion write access prerequisite + step 0 check")
 
+# The read-only sentence follows the Prerequisite line in both places.
+READONLY = "Having write access doesn't mean you use it: during the install you only read Notion. Notion Librarian does every Notion write, from step 3 on."
+for name, text in (("README prompt", prompt), ("architecture.md section 8", sec8)):
+    lines = text.splitlines()
+    idx = [i for i, l in enumerate(lines) if re.match(r"(\*\*)?Prerequisite", l)]
+    if len(idx) == 1 and idx[0] + 1 < len(lines) and lines[idx[0] + 1].strip() == READONLY:
+        ok(f"{name}: read-only sentence follows the Prerequisite line")
+    else:
+        err(f"{name}: the line right after Prerequisite must be: {READONLY}")
+
 # Every profile the prompt or section 8 names, and every repo path anywhere, exists.
 path_re = re.compile(r"(?<![\w/.-])((?:profiles|notion|scripts|\.github)/[\w./*-]+|[\w-]+\.(?:md|csv)|LICENSE)(?![\w/-])")
 missing = set()

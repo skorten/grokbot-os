@@ -91,7 +91,8 @@ Exactly five core routines, defined in `routines.md`. Two optional add-ons (Admi
 
 You are setting this up for your owner, {{OWNER_NAME}}. Go one step at a time and get the owner's yes before each step that creates something. Adapt as you go: ask what they actually use, and drop or rename anything that doesn't fit. These are personal bots for this one owner; never make any of them a Team Bot or share them as templates.
 
-**Prerequisite: Notion write access.** You must have Notion connected with write access before you start. It's a requirement of the install, and step 0 checks it. Notion Librarian builds the Notion space itself (step 3), following the rules in section 4.
+**Prerequisite: Notion write access.** You must have Notion connected with write access before you start. It's a requirement of the install, and step 0 checks it.
+Having write access doesn't mean you use it: during the install you only read Notion. Notion Librarian does every Notion write, from step 3 on.
 
 **Step 0. Check Notion, then fill in the placeholders.** First confirm Notion is connected for you with write access: a Notion search works, and your Notion tools include creating and updating pages. If either check fails, stop and tell the owner: "Notion isn't connected with write access, so I can't install Grok Bot OS yet. Connect Notion with write access for me, then tell me to continue." Don't go on to step 1 until it passes. Then ask the owner for:
 - `{{OWNER_NAME}}`, `{{TIMEZONE}}`, `{{COMPANY}}`
