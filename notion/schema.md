@@ -1,0 +1,144 @@
+# Notion schema
+
+Generic starting schema. Adapt it to the owner's needs; don't copy it blindly. Notion Librarian is the only bot that writes any of this once it exists.
+
+## Design rules
+- One tracker per job. Search before creating a database; reuse one that already fits.
+- Keep databases few.
+- Every database has a `Created` (created time) property and closed-set `Status` and `Type` options.
+- Finish with Done or move to Archive. Never delete.
+- Categories is a database (a shared tag list), not a select, so Tasks and Notes share one list.
+
+## Relations
+| From | Property | To | Cardinality |
+|---|---|---|---|
+| Tasks | Project | Projects | optional, single |
+| Tasks | Category | Categories | multi |
+| Notes | Category | Categories | multi |
+| Notes | Related Project | Projects | optional, single |
+
+Back-links appear on the target: Projects gets `Tasks` and `Related Notes`; Categories gets `Tasks` and `Notes`.
+
+---
+
+## Tasks
+The owner's only to-do list. Lives at the top of the private sidebar.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Name | title | |
+| Status | select | Not Started, In Progress, Done |
+| Priority | select | High, Medium, Low, None |
+| todo_type | select | Do / own, Raise/influence, Standing posture, Team norms, Watch/risk, Others' work |
+| Type | select | Work, Personal |
+| Due Date | date | Real deadlines only |
+| Follow up | date | When Chief of Staff next checks an item that isn't Do / own. Effectively required for Others' work |
+| Created | created time | |
+| Notes | text | What, why, next step, source, or a link to a page that has them. No bare titles |
+| Category | relation → Categories | multi |
+| Project | relation → Projects | optional |
+
+**todo_type:** only `Do / own` is owned work; the other five are tracked, not owned. Don't add, replace, or collapse values without the owner's yes. Define each value on a "Todo types" page under Reference.
+> Note: todo_type is a select for now. It can be promoted later to its own Todo Types database (with a relation from Tasks), the same way Categories is a database.
+
+Human views (for the owner, not bots): Default; Oldest First (Status is not Done, Created ascending); Personal Open.
+
+## Projects
+Multi-week efforts only. Lives under Operating system.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Name | title | |
+| Status | select | Active, On Hold, Done |
+| Type | select | Work, Personal |
+| Notes | text | Brief |
+| Created | created time | |
+| Tasks | relation (back-link from Tasks.Project) | |
+| Related Notes | relation (back-link from Notes.Related Project) | |
+
+A project page holds its brief, a decision log, and optionally project-only databases (below).
+
+## Notes
+Lasting reference: decisions, protocols, numbers, build notes. Lives under Operating system.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Name | title | |
+| Type | select | Work, Personal |
+| Category | relation → Categories | multi |
+| Related Project | relation → Projects | optional |
+| Created | created time | |
+
+## Categories
+Shared tag list for Tasks and Notes. Lives under Operating system. Seed it from `categories-seed.csv` (import the Name column; Group and Notes are guidance for the owner, not properties). The owner should edit the list first. Check for near-matches before adding a new one.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Name | title | |
+| Created | created time | |
+| Tasks | relation (back-link) | |
+| Notes | relation (back-link) | |
+
+---
+
+## Project-only databases (inside a project page, no relations)
+
+**Meeting notes**
+| Property | Type |
+|---|---|
+| Title | title |
+| Date | date |
+| Attendees | text |
+| Summary | text |
+| Decisions | text |
+| Action items | text |
+| Meeting notes link | URL |
+
+**Work board**
+| Property | Type | Values |
+|---|---|---|
+| Name | title | |
+| Status | select | Backlog, Next, In Progress, Waiting, Done |
+| Owner | text | |
+| Due | date | |
+| Notes | text | |
+
+## Dev sandbox boards (per product, no relations)
+Each product under the Dev Pod sandbox gets its own pair, copied from a template product.
+
+**Backlog**
+| Property | Type | Values |
+|---|---|---|
+| Name | title | |
+| Type | select | Story, Bug, Spike, Chore |
+| Status | select | Todo, Working, Blocked, Ready for Review, Done |
+| Priority | select | P0, P1, P2, P3 |
+| Acceptance criteria | text | |
+| Estimate | number | |
+| Owner | person | |
+| Product | text or select | |
+| Sprint | text or select | |
+
+**Delivery**
+| Property | Type | Values |
+|---|---|---|
+| Name | title | |
+| Status | select | Planned, Active, At Risk, Done |
+| Milestone | text | |
+| Target date | date | |
+| Dependencies | text | |
+| Notes | text | |
+
+## Agent change log
+An inline database on the bot rules page (Agent README). Librarian adds one row per write it signs off; the owner reviews.
+
+| Property | Type | Values / notes |
+|---|---|---|
+| Agent | title | Which bot asked for the write |
+| Page | URL | The page written |
+| Action | select | create, append (add others such as update or move if needed) |
+| Time | date (with time) | |
+| Summary | text | One line |
+| Reviewed | checkbox | The owner checks it |
+
+Attribution here is an honor-system record for tracing, not proof: if every bot signs in to Notion as the owner, Notion itself can't tell them apart. On lower Notion plans page history is short, so this log may be the only lasting record of who changed what.

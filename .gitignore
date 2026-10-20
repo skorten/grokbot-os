@@ -1,0 +1,15 @@
+# OS and editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Local scratch and secrets: never commit
+*.bak*
+*.tmp
+.env
+.env.*
+local/
+scratch/
