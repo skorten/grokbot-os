@@ -19,6 +19,7 @@ A starter kit for a personal Grok Bot fleet: single-job bots, a front-door Chief
 | `notion/categories-seed.csv` | Example categories. Edit before seeding |
 | `notion/todo-types-seed.csv` | The six Todo types with one-line definitions |
 | `profiles/*.md` | One profile per bot: Chief of Staff, Notion Librarian, Admin Bot, Deep Research, Docs Writer, Dev Pod, Side Quest, Fleet Ops, Bot Designer |
+| `greptile.json` | Greptile code review config: review each PR when it opens and again on every push |
 | `scripts/check.sh` | Leak scan and install consistency checks (also run by GitHub Actions) |
 | `routines.md` | Exactly five core routines with cron schedules and prompts, plus two optional add-ons |
 
