@@ -12,7 +12,7 @@ Every bot view excludes Status `Archived`.
 | Waiting on others (bots) | `{{VIEW:Waiting on others}}` | Tasks | Status is not Done AND Status is not Archived AND Todo type contains Others' work | Follow up ascending | Name, Status, Follow up, Due Date, Notes | Chief of Staff's follow-up list |
 | All tasks (bots) | `{{VIEW:All tasks}}` | Tasks | Status is not Archived | Created descending | Name, Status, Todo type, Priority, Due Date, Follow up, Type, Notes | Duplicate checks and history, including Done tasks |
 | Active projects (bots) | `{{VIEW:Active projects}}` | Projects | Status = Active | (any) | Name, Status, Type, Notes, Tasks | Project context for briefs and routing. Active excludes Archived |
-| <Product> Backlog (bots) | `{{VIEW:<product> Backlog}}` | that product's Backlog | Status is not Done AND Status is not Archived | grouped by Status | all | Required when Dev Pod is installed. One view per product, before the pod uses it |
-| <Product> Delivery (bots) | `{{VIEW:<product> Delivery}}` | that product's Delivery | Status is not Done AND Status is not Archived | grouped by Status | all | Required when Dev Pod is installed. One view per product, before the pod uses it. At Risk is the blocked signal |
+| <Product> Backlog (bots) | `{{VIEW:<product> Backlog}}` | that product's Backlog | Status is not Archived | grouped by Status | all | Required when Dev Pod is installed. One view per product, before the pod uses it |
+| <Product> Delivery (bots) | `{{VIEW:<product> Delivery}}` | that product's Delivery | Status is not Archived | grouped by Status | all | Required when Dev Pod is installed. One view per product, before the pod uses it. At Risk is the blocked signal |
 
 All are table views. Notes, Categories, and Todo types have no bot view; bots use search and fetch for those.
