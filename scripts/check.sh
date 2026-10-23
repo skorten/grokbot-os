@@ -4,7 +4,15 @@
 # Needs bash, GNU grep, git, python3. Runs gitleaks too if it's on PATH.
 set -uo pipefail
 
-cd "$(git rev-parse --show-toplevel 2>/dev/null || dirname "$0"/..)"
+# git rev-parse is the repo root inside a checkout. Outside one, fall back to
+# the parent of this script: "$(dirname "$0")/..". The old form dirname "$0"/..
+# passed "scripts/check.sh/.." to dirname, so cd failed and the scan stayed put.
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || repo_root="$(dirname "$0")/.."
+cd "$repo_root" || { echo "FAIL: couldn't find a git repo or files to scan"; exit 1; }
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "FAIL: couldn't find a git repo or files to scan"
+  exit 1
+fi
 
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
@@ -15,6 +23,12 @@ ok()  { echo "ok:   $*"; }
 mapfile -t FILES < <(git ls-files --cached --others --exclude-standard \
   | grep -v -x -e 'scripts/check.sh' -e 'LICENSE' \
   | while read -r f; do [ -f "$f" ] && echo "$f"; done)
+# An empty list means git ls-files failed or nothing is tracked. Scanning zero
+# files makes every grep succeed, so never treat that as a pass.
+if [ "${#FILES[@]}" -eq 0 ]; then
+  echo "FAIL: couldn't find a git repo or files to scan"
+  exit 1
+fi
 
 scan() { # scan <label> <grep -E pattern> [allow-filter-regex]
   local label="$1" pat="$2" allow="${3:-}" hits
