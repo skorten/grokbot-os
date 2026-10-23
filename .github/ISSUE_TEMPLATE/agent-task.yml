@@ -1,0 +1,55 @@
+name: Agent task
+description: A small, well-scoped task for the agent pilot. Sean applies the agent-ready label by hand after review.
+title: "[agent-task] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for small, reproducible tasks scoped to this repo.
+        Filing this form does not queue work. Only issues filed by the repo owner that carry the `agent-ready` label (applied by hand) are picked up.
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What should happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happens instead? Include error output if any.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands or steps, starting from a clean checkout.
+      placeholder: |
+        1. git checkout main
+        2. bash scripts/check.sh
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How will we know it's done? Prefer checks that can be run (for example scripts/check.sh).
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files in scope
+      description: Optional. Paths the change is expected to touch.
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: This issue involves no secrets, auth, or billing changes
+          required: true
