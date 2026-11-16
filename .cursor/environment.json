@@ -1,0 +1,4 @@
+{
+  "name": "grokbot-os (bash, git, gitleaks)",
+  "install": "bash .cursor/install.sh"
+}

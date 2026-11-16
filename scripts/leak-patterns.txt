@@ -1,0 +1,8 @@
+# Example extra denylist. scripts/check.sh does not load this file.
+# One extended regular expression per line. Blank lines and # comments are ignored.
+# Put real terms in the LEAK_PATTERNS environment variable, or in
+# scripts/leak-patterns.local.txt, which is gitignored.
+#
+# Harmless samples of the shape:
+\bEXAMPLE_NAME\b
+example-org-name

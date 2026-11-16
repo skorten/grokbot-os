@@ -1,0 +1,9 @@
+# Credential-only patterns for the optional private fleet snapshot.
+# One extended regex per line. Names and org terms are not part of this scan.
+(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{20,}
+github_pat_[A-Za-z0-9_]{20,}
+xox[abprs]-[A-Za-z0-9-]{10,}
+AKIA[0-9A-Z]{16}
+sk-[A-Za-z0-9_-]{20,}
+ntn_[A-Za-z0-9]{30,}
+-----BEGIN [A-Z ]*PRIVATE KEY-----
